@@ -135,7 +135,7 @@ def add_to_manifest(repositories):
 
         print 'Adding dependency: MoKee/%s -> %s' % (repo_name, repo_target)
         project = ElementTree.Element("project", attrib = { "path": repo_target,
-            "remote": "github", "name": "MoKee/%s" % repo_name, "revision": "jellybean" })
+            "remote": "github", "name": "MoKee/%s" % repo_name, "revision": "jb_mkt" })
 
         if 'branch' in repository:
             project.set('revision',repository['branch'])
@@ -152,7 +152,7 @@ def add_to_manifest(repositories):
 
 def fetch_dependencies(repo_path):
     print 'Looking for dependencies'
-    dependencies_path = repo_path + '/cm.dependencies'
+    dependencies_path = repo_path + '/mk.dependencies'
     syncable_repos = []
 
     if os.path.exists(dependencies_path):
