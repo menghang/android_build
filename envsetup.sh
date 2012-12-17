@@ -67,16 +67,16 @@ function check_product()
     fi
 
     if (echo -n $1 | grep -q -e "^cm_") ; then
-       CM_BUILD=$(echo -n $1 | sed -e 's/^cm_//g')
+       MK_BUILD=$(echo -n $1 | sed -e 's/^cm_//g')
        NAM_VARIANT=$(echo -n $1 | sed -e 's/^cm_//g')
     elif (echo -n $1 | grep -q -e "htc_") ; then
-       CM_BUILD=
+       MK_BUILD=
        NAM_VARIANT=$(echo -n $1)
     else 
-       CM_BUILD=
+       MK_BUILD=
        NAM_VARIANT=
     fi
-    export CM_BUILD
+    export MK_BUILD
     export NAM_VARIANT
 
     CALLED_FROM_SETUP=true BUILD_SYSTEM=build/core \
@@ -1305,7 +1305,7 @@ function installboot()
     adb wait-for-device
     adb remount
     adb wait-for-device
-    if (adb shell cat /system/build.prop | grep -q "ro.cm.device=$CM_BUILD");
+    if (adb shell cat /system/build.prop | grep -q "ro.cm.device=$MK_BUILD");
     then
         adb push $OUT/boot.img /cache/
         for i in $OUT/system/lib/modules/*;
@@ -1316,7 +1316,7 @@ function installboot()
         adb shell chmod 644 /system/lib/modules/*
         echo "Installation complete."
     else
-        echo "The connected device does not appear to be $CM_BUILD, run away!"
+        echo "The connected device does not appear to be $MK_BUILD, run away!"
     fi
 }
 
@@ -1344,13 +1344,13 @@ function installrecovery()
     adb wait-for-device
     adb remount
     adb wait-for-device
-    if (adb shell cat /system/build.prop | grep -q "ro.cm.device=$CM_BUILD");
+    if (adb shell cat /system/build.prop | grep -q "ro.cm.device=$MK_BUILD");
     then
         adb push $OUT/recovery.img /cache/
         adb shell dd if=/cache/recovery.img of=$PARTITION
         echo "Installation complete."
     else
-        echo "The connected device does not appear to be $CM_BUILD, run away!"
+        echo "The connected device does not appear to be $MK_BUILD, run away!"
     fi
 }
 
