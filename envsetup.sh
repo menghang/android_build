@@ -66,9 +66,9 @@ function check_product()
         return
     fi
 
-    if (echo -n $1 | grep -q -e "^cm_") ; then
-       CM_BUILD=$(echo -n $1 | sed -e 's/^cm_//g')
-       NAM_VARIANT=$(echo -n $1 | sed -e 's/^cm_//g')
+    if (echo -n $1 | grep -q -e "^mk_") ; then
+       CM_BUILD=$(echo -n $1 | sed -e 's/^mk_//g')
+       NAM_VARIANT=$(echo -n $1 | sed -e 's/^mk_//g')
     elif (echo -n $1 | grep -q -e "htc_") ; then
        CM_BUILD=
        NAM_VARIANT=$(echo -n $1)
@@ -516,7 +516,7 @@ function breakfast()
             lunch $target
         else
             # This is probably just the CM model name
-            lunch cm_$target-userdebug
+            lunch mk_$target-userdebug
         fi
     fi
     return $?
